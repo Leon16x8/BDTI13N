@@ -27,17 +27,26 @@ def consultar():
         sql = 'select * from pessoa'
         con.execute(sql)
         for(cpf, nome, telefone, endereco, dataDeNascimento) in con:
-            print('Código: CPF: {}, Nome: {}, Telefone: {}, Endereço: {}, Data De Nascimento: {}'.format(cpf, nome, telefone, endereco, dataDeNascimento))
+            print('CPF: {}, Nome: {}, Telefone: {}, Endereço: {}, Data De Nascimento: {}'.format(cpf, nome, telefone, endereco, dataDeNascimento))
         print('\n')
     except Exception as erro:
         print(erro)
 
-def atualizar(cod, campo, novoDado):
+def atualizar(cpf, campo, novoDado):
     try:
-        sql = "update into pessoa set {} = '{}' where codigo = '{}'".format(campo, novoDado, cod)
+        sql = "update pessoa set {} = '{}' where cpf = '{}'".format(campo, novoDado, cpf)
         con.execute(sql)
         db_connection.commit()
         print('{} Atualizado com Sucesso Cria!'.format(con.rowcount))#rowcount = Contar quantas linhas foram afetadas
 
+    except Exception as erro:
+        print(erro)
+
+def excluir(cpf):
+    try:
+        sql = "delete from pessoa where cpf = '{}'".format(cpf)
+        con.execute(sql)
+        db_connection.commit()
+        print('{} Excluido!'.format(con.rowcount))
     except Exception as erro:
         print(erro)
